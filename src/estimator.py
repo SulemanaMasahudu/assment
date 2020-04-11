@@ -35,7 +35,7 @@ def estimator(data):
   impact_dollarsInFlight= (impact_infectionsByRequestedTime * data['region']['avgDailyIncomePopulation'] * data['region']['avgDailyIncomeInUSD']) / 30
   severeimpact_dollarsInFlight= (severeimpact_infectionsByRequestedTime * data['region']['avgDailyIncomePopulation'] * data['region']['avgDailyIncomeInUSD']) / 30
   
-  #updating output to have current data 
+  #updating output to have current data hello there 
   output['data'].update(data)
   output['impact'].update({'currentlyInfected': impact_currentlyInfected,
                            'infectionsByRequestedTime': impact_infectionsByRequestedTime,
