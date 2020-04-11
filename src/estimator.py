@@ -7,33 +7,33 @@ def estimator(data):
         'severeImpact': {}  # your severe case estimation
   }
   #compute currentlyInfected
-  impact_currentlyInfected = data['reportedCases'] * 10
-  severeimpact_currentlyInfected = data['reportedCases'] * 50
+  impact_currentlyInfected = int(data['reportedCases'] * 10)
+  severeimpact_currentlyInfected = int(data['reportedCases'] * 50)
   
   #Estimating infectionsByRequestedTime,
-  impact_infectionsByRequestedTime = data['reportedCases'] * 10 * 1024
-  severeimpact_infectionsByRequestedTime = data['reportedCases'] * 50 * 1024
+  impact_infectionsByRequestedTime = int(impact_currentlyInfected * 512)
+  severeimpact_infectionsByRequestedTime = int(severeimpact_currentlyInfected * 512)
   
   #This is the estimated number of severe positive cases that will require hospitalization to recover.
-  impact_severeCasesByRequestedTime = 0.15 * impact_infectionsByRequestedTime
-  severeimpact_severeCasesByRequestedTime = 0.15 * severeimpact_infectionsByRequestedTime
+  impact_severeCasesByRequestedTime = int(0.15 * impact_infectionsByRequestedTime)
+  severeimpact_severeCasesByRequestedTime = int(0.15 * severeimpact_infectionsByRequestedTime)
   
   
-  available_beds = 0.35 * data['totalHospitalBeds']
-  impact_hospitalBedsByRequestedTime = available_beds - impact_severeCasesByRequestedTime 
-  severeimpact_hospitalBedsByRequestedTime = available_beds -  severeimpact_severeCasesByRequestedTime
+  available_beds = int(0.35 * data['totalHospitalBeds'])
+  impact_hospitalBedsByRequestedTime = int(available_beds - impact_severeCasesByRequestedTime )
+  severeimpact_hospitalBedsByRequestedTime = int(available_beds -  severeimpact_severeCasesByRequestedTime)
   
   #This is the estimated number of severe positive cases that will require ICU care.
-  impact_casesForICUByRequestedTime = 0.05 * impact_infectionsByRequestedTime
-  severeimpact_casesForICUByRequestedTime = 0.05 * severeimpact_infectionsByRequestedTime
+  impact_casesForICUByRequestedTime = int(0.05 * impact_infectionsByRequestedTime)
+  severeimpact_casesForICUByRequestedTime = int(0.05 * severeimpact_infectionsByRequestedTime)
   
   #This is the estimated number of severe positive cases that will require ventilators.
-  impact_casesForVentilatorsByRequestedTime = 0.02 * impact_infectionsByRequestedTime
-  severeimpact_casesForVentilatorsByRequestedTime = 0.02 * severeimpact_infectionsByRequestedTime
+  impact_casesForVentilatorsByRequestedTime = int(0.02 * impact_infectionsByRequestedTime)
+  severeimpact_casesForVentilatorsByRequestedTime = int(0.02 * severeimpact_infectionsByRequestedTime)
   
   #Estimated Income loss!!! estimate how much money the economy is likely to lose over the said period.
-  impact_dollarsInFlight= (impact_infectionsByRequestedTime * data['region']['avgDailyIncomePopulation'] * data['region']['avgDailyIncomeInUSD']) / 30
-  severeimpact_dollarsInFlight= (severeimpact_infectionsByRequestedTime * data['region']['avgDailyIncomePopulation'] * data['region']['avgDailyIncomeInUSD']) / 30
+  impact_dollarsInFlight= int((impact_infectionsByRequestedTime * data['region']['avgDailyIncomePopulation'] * data['region']['avgDailyIncomeInUSD']) / 30)
+  severeimpact_dollarsInFlight= int((severeimpact_infectionsByRequestedTime * data['region']['avgDailyIncomePopulation'] * data['region']['avgDailyIncomeInUSD']) / 30)
   
   #updating output to have current data hello there 
   output['data'].update(data)
@@ -52,4 +52,3 @@ def estimator(data):
                            'dollarsInFlight': severeimpact_dollarsInFlight})
   return output
 
-estimator(data)
