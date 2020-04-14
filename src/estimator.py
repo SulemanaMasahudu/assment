@@ -4,7 +4,7 @@ def estimator(data):
   output ={
         'data': {},  # the input data you got
         'impact': {}, # your best case estimation
-        'severeImpact': {}  # your severe case estimation hello
+        'severeImpact': {}  # your severe case estimation hellocd 
   }
   #compute currentlyInfected
   impact_currentlyInfected = int(data['reportedCases'] * 10)
